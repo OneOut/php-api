@@ -205,6 +205,9 @@ if($_GET['format'] == 'json') {
 
 
 #Capeter 2
+
+## JSON方法封装接口数据方法
+
 二、封装通信接口数据方法
 2.1 JSON方式封装接口数据方法
 2.2 XML方式封装接口数据方法
@@ -272,5 +275,82 @@ $arr = array(
 	'name' => 'michaeldu'
 );
 Response::json(200, '数据返回成功', $arr);
+?>
+```
+
+##Learning Session 2
+### XML方法封装接口数据方法
+to do 
+
+
+##Learning Session 3
+XML方式封装通信接口
+
+
+
+#Capeter 3
+三、核心技术
+app领域和web应用都非常广
+- 缓存技术 
+	1. 静态缓存(保存在磁盘上的静态文件，用PHP生成数据放入静态文件中)
+	2. Memcache redis缓存
+
+- 定时任务
+
+PHP操作缓存
+1. 生成缓存
+
+2. 获取缓存
+
+3. 删除缓存
+
+
+> file.php
+```
+<?php
+class File {
+	private $_dir;
+	
+	const EXT = '.txt';
+	public function __construct() {
+		$this->_dir = dirname(__FILE__).'/files/';
+	}
+	public function cacheData($key,$value='',$path='') {
+		$filename = $this->_dir.$path.$key.self::EXT;
+		if($value!='') {//将value值写入缓存
+			if(is_null($value)){//删除缓存
+				return @unlink($filename);
+			}
+			$dir = dirname($filename);
+			if(!is_dir($dir)) {
+				mkdir($dir, 0777);
+			}
+			return file_put_contents($filename, json_encode($value));//将value生成字符串类型，使用json
+		} 
+
+		if(!is_file($filename)) {//获取缓存
+			return FALSE;
+		} else {
+			return json_decode(file_get_contents($filename), true);
+		}
+	}
+}
+?>
+
+> 测试文件 test.php
+<?php
+require_once("./file.php");
+$data = array(
+	'id' => 1,
+	'name' => 'michaeldu',
+	'type' => array(4,5,6),
+	'test' => array(1,45,67=>array(123,'tsysa))
+);
+$file = new File();
+if($file->cacheData('index_mk_cache', $data)) {
+	echo "success";
+} else {
+	echo "error";
+}
 ?>
 ```
