@@ -204,3 +204,73 @@ if($_GET['format'] == 'json') {
 |提交数据|通过接口提交数据给服务器，然后服务器入库处理，或者其他处理|
 
 
+#Capeter 2
+二、封装通信接口数据方法
+2.1 JSON方式封装接口数据方法
+2.2 XML方式封装接口数据方法
+2.3 综合通信方式封装
+
+2.1.1 PHP生成JSON数据
+	> 方法：`json_encode`($value);
+`*注：该函数只能接受UTF-8编码的数据，如果传递其他格式的数据该函数会返回null*`
+```
+<?php
+$arr = array(
+	'id' => 1,
+	'name' => 'michaeldu'
+);
+$data = "输出json数据";
+$newData = iconv('UTF-8', 'GBK', $data); //将UTF-8的格式转化为GBK的格式
+echo json_encode($arr);
+echo json_encode($newData);//测试GBK会返回null
+?>
+```
+
+2.1.2 通信数据标准格式
+code		状态码(200, 400等)
+message		提示信息(邮箱格式不正确；数据返回成功等)
+data		返回信息
+JSON
+	code: 200
+	message:"数据返回成功"
+	data
+		id:1
+		name:"michaeldu"
+
+```
+<?php
+class Response {
+	/**
+	 *  按JSON方式输出通信数据
+	 * @param integer $code 状态码
+	 * @param string  $message 提示信息
+	 * @param integer $data 数据
+	 * return string
+	 **/
+	public static function json($code, $message = '', $data = array()) {
+		
+		if(!is_numeric($code)) {
+			return '';
+		}
+
+		$result = array(
+			'code' => $code, 
+			'message' => $message,
+			'data' => $data
+		);
+		echo json_encode($result);
+		exit;
+	}
+}
+?>
+
+--new file test.php
+<?php
+require_once('./response.php');
+$arr = array(
+	'id' => 1,
+	'name' => 'michaeldu'
+);
+Response::json(200, '数据返回成功', $arr);
+?>
+```
