@@ -1,6 +1,6 @@
 PHP 开发APP接口
 
-Capeter 1
+#Capeter 1
 
 APP接口介绍
 APP接口和PHP面向对象中的接口是不一样的，希望大家不要混淆。APP接口是供客户端通信用的，客户端APP可以通过接口获取数据和提交数据等操作。 APP接口包括以下内容： 1、接口地址 如 http://app.com/init.php?did=sd54656&client_id=1、这个地址可以理解为客户端APP抛送的http请求地址。 2、接口文件(init.php)-处理业务逻辑的 3、返回接口数据(xml、josn等数据格式)
