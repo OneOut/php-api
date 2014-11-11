@@ -354,3 +354,13 @@ if($file->cacheData('index_mk_cache', $data)) {
 }
 ?>
 ```
+
+##Learning Session 2
+**Memcache, Redis**
+
+> 学习目标
+1. 掌握如何设置缓存操作
+2. 掌握如何获取缓存操作
+3. 掌握如何删除缓存操作
+
+
