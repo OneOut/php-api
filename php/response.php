@@ -11,7 +11,7 @@ class Response {
 		return string
 	*/
 
-	public static function show($code, $message ='', $data=array(), $type＝self::JSON) {
+	public static function show($code, $message='', $data=array(), $type=self::JSON){
 		if(!is_numeric($code)) {
 			return '';
 		}
@@ -82,7 +82,7 @@ class Response {
 		$xml = "<?xml version='1.0' encoding='UTF-8'?>\n";
 		$xml.= "<root>\n";
 
-		$xml.= self::xmlToEncode($$result);
+		$xml.= self::xmlToEncode($result);
 
 		$xml.= "</root>";
 		echo $xml;

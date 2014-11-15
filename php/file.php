@@ -16,7 +16,7 @@ class File{
 				return @unlink($filename);
 			}
 
-			$dir = dirname($dir);
+			$dir = dirname($filename);
 			if(!is_dir($dir)) {
 				mkdir($dir, 0777);
 			}
@@ -24,7 +24,7 @@ class File{
 			$cacheTime = sprintf('%011d', $cacheTime);
 			return file_put_contents($filename, $cacheTime.json_encode($value));
 		}
-
+		
 		if(!is_file($filename)) {
 			return FALSE;
 		} 

@@ -9,8 +9,8 @@ class Db {
 	private $_dbConfig = array(
 		'host' => '127.0.0.1',
 		'user' => 'root',
-		'password' => '',
-		'database' => 'video'
+		'password' => 'root',
+		'database' => 'test'
 	);
 	private function __construct() {
 		
@@ -22,11 +22,11 @@ class Db {
 		}
 		return self::$_instance;
 	}
-
+	
 	public function connect() {
 		self::$_connectSource = mysql_connect($this->_dbConfig['host'], $this->_dbConfig['user'], $this->_dbConfig['password']);
 		if(!self::$_connectSource) {
-			throw new Exception('mysql connect error', mysql_error());
+			throw new Exception('mysql connect error'.mysql_error());
 			// die('mysql connect error', mysql_error());
 		}
 
@@ -41,7 +41,7 @@ Example:
 
 $connect = Db::getInstance()->connect();
 
-$sql = "SELECT * from video";
+$sql = "SELECT * from test";
 $result = mysql_query($sql);
 echo mysql_num_rows($result);
 var_dump($result);
